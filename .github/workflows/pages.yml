@@ -1,0 +1,51 @@
+name: Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out selected commit
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Validate static artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f site/index.html
+          test -f site/styles.css
+          test -f site/.nojekyll
+          test "$(find site -type f | wc -l)" -eq 3
+          test -z "$(find site -type l -print -quit)"
+          test "$(wc -c < site/index.html)" -le 20480
+          test "$(wc -c < site/styles.css)" -le 30720
+          test "$(( $(wc -c < site/index.html) + $(wc -c < site/styles.css) + $(wc -c < site/.nojekyll) ))" -le 61440
+          ! grep -RniE '<script|<form|analytics|tracking|open source|download|sign[ -]?up' site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
