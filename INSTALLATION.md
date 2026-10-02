@@ -2,7 +2,7 @@
 
 Run WebAI on your own computer with Docker, then open it in your browser. Choose the instructions for your operating system below. You do not need to install a separate database or local AI service.
 
-**Download status:** A software download is not yet available. These instructions describe the packaged demo and require its image archive and matching operator helpers. Obtain those files from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases) when available; do not substitute an unrelated image.
+Download [WebAI 0.7.1 Preview](https://github.com/Green-Web-Land/WebAI/releases/tag/v0.7.1-preview.1), a demo under QA. Obtain all three image parts, `DOWNLOAD-MANIFEST.json`, `WebAI-operator-helpers.zip`, and the accompanying third-party notices from that release. Corresponding third-party source archives are also available. Do not substitute an unrelated image.
 
 ## Runtime design
 
@@ -64,10 +64,10 @@ If Docker requires elevated access, have the authorized operator perform these c
 
 ## Start WebAI
 
-These commands are for a **local evaluation on your own computer**. Docker must have enough available memory and CPU capacity for the resource limits below, in addition to the host's needs. In the following single-line command, replace `IMAGE_TAG_FROM_RELEASE` with the exact tag reported by `docker load` and documented for that release. The command works in PowerShell and Linux or Mac terminals:
+These commands are for a **local evaluation on your own computer**. Docker must have enough available memory and CPU capacity for the resource limits below, in addition to the host's needs. The image tag for this release is `gwl/ai-v2:version1`. The following single-line command works in PowerShell and Linux or Mac terminals:
 
 ```text
-docker run -d --name webai --platform linux/amd64 --cap-drop ALL --security-opt no-new-privileges --memory 6g --memory-swap 6g --cpus 4 --pids-limit 256 -p 127.0.0.1:18500:8080 -e AI_BLAZOR_PREVIEW=1 -e AI_UI_PRIVATE_HTTP=1 IMAGE_TAG_FROM_RELEASE
+docker run -d --name webai --platform linux/amd64 --cap-drop ALL --security-opt no-new-privileges --memory 6g --memory-swap 6g --cpus 4 --pids-limit 256 -p 127.0.0.1:18500:8080 -e AI_BLAZOR_PREVIEW=1 -e AI_UI_PRIVATE_HTTP=1 gwl/ai-v2:version1
 ```
 
 The release image supplies its nonroot runtime user. Do not add `--privileged`, mount the Docker socket, or expose internal database/model ports. Do not add `--rm`: removing the container would remove its internal state. The startup command deliberately has no automatic restart policy.
@@ -101,7 +101,7 @@ Starting the same container retains its data. After restarting your computer, st
 
 ## Cold backup and restore
 
-The release must include its matching recovery helper. The existing candidate workflow is:
+Use `runtime_backup.py` from the matching operator helpers archive:
 
 ```text
 docker stop --timeout 30 CONTAINER

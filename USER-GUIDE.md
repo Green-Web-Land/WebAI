@@ -12,7 +12,7 @@ The Owner creates Admin and User accounts. Admin manages ordinary User accounts 
 
 ## Find your workspace
 
-**Menu** opens or closes navigation. Expand a module, then a subsystem, to choose a page. Modules include Personal / Home, Documents / Office, Data / MIS, System Administration and Workflow / Automation. Empty groups are placeholders for future work.
+**Menu** opens or closes navigation. Expand a module, then a subsystem, to choose a page. Modules include Personal / Home, Documents / Office, Data / MIS, System and Workflow / Automation. System contains the workspace configuration controls. System Administrator is a separate placeholder for future subsystems. Empty groups are not installed features.
 
 **Configure workspace** changes your personal menu choices. It does not install features or change permissions. The Owner's subsystem access policy is separate and applies to service requests as well as the UI.
 

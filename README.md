@@ -76,9 +76,9 @@ You control the installation and its surrounding environment. Protect the host, 
 
 ## Try the evaluation demo
 
-**Downloads are not available yet.** Follow [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases) for downloadable versions and their installation instructions. WebAI runs in your own environment; it is not a hosted service.
+**Download the demo under QA:** [WebAI 0.7.1 Preview](https://github.com/Green-Web-Land/WebAI/releases/tag/v0.7.1-preview.1). Read the [installation guide](INSTALLATION.md) and download all image parts, the manifest and matching operator helpers. WebAI runs in your own environment; it is not a hosted service.
 
-When the demo is available, start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
+Start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
 
 The demo is for evaluation, not critical data or production use. [Read the evaluation limitations](EVALUATION.md) before using it.
 
