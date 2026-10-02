@@ -12,7 +12,7 @@ The provider implementation had 40 component, 44 API and 12 role-specific browse
 
 ## Evaluation limitations
 
-- Fresh-host installation and final startup instructions are not yet fully verified.
+- The documented Linux startup command passed eight isolated fresh-container checks, including Owner setup, login and stop/start persistence. Windows/Mac installation and broader host coverage remain unverified.
 - Forgotten-Owner recovery does not yet have a fully verified procedure.
 - Rapid or shared-address browser traffic can encounter request throttling.
 - Accessibility, translation and browser coverage is limited.

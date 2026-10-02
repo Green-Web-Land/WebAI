@@ -117,6 +117,6 @@ Clean shutdown creates Files transfer evidence. Altered or missing evidence must
 
 ## Current limitations
 
-Fresh-host installation, forgotten-Owner recovery and network-facing HTTPS/proxy behavior are not yet fully verified. Do not use this demo for critical or production data. See [evaluation limitations](EVALUATION.md).
+The documented command passed eight checks in a new, empty Linux Docker container: readiness, setup page access, first Owner creation, setup-token invalidation, account authentication, password sign-in, readiness after stop/start, and retained account/session access. This does not qualify every host configuration. Windows/Mac installation, forgotten-Owner recovery and network-facing HTTPS/proxy behavior are not yet fully verified. Do not use this demo for critical or production data. See [evaluation limitations](EVALUATION.md).
 
 [Return to overview](README.md)
