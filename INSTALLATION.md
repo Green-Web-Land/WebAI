@@ -2,7 +2,7 @@
 
 Run WebAI on your own computer or server, then use it in your browser. WebAI is downloadable software, not a hosted service.
 
-These instructions match **0.8.0-next.1**. Download all three image parts, `DOWNLOAD-MANIFEST.json`, `WebAI-operator-helpers.zip` and the third-party notices from the [matching release](https://github.com/Green-Web-Land/WebAI/releases/tag/v0.8.0-next.1). Corresponding third-party sources are supplied separately. Do not mix releases.
+These instructions match **WebAI v0.9.0**. Download its image parts, `DOWNLOAD-MANIFEST.json`, `WebAI-operator-helpers.zip` and third-party notices from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Corresponding third-party sources are supplied separately. Use only files listed in the matching release manifest; do not mix releases.
 
 ## Requirements
 
@@ -104,7 +104,7 @@ After a computer restart, start Docker, then the same container. State is stored
 
 ## Cold backup and restore
 
-Use the matching 0.8 helper and a new private backup directory, restricted to the operator. On Windows inspect its Security/ACL settings; POSIX-style permissions alone do not establish Windows access protection.
+Use the helper matching your release and a new private backup directory, restricted to the operator. On Windows inspect its Security/ACL settings; POSIX-style permissions alone do not establish Windows access protection.
 
 ```text
 docker stop --timeout 45 webai
@@ -118,13 +118,36 @@ Replace the directory placeholder; Windows uses `py -3`. Local mail restore must
 
 Verify sign-in, documents, manuscripts, files and webmail before switching users or deleting the original container. Missing Files transfer evidence, unclean shutdown, unsupported mounts and partial installation are failures, not checks to bypass. Arbitrary database/schema upgrades are not promised.
 
-## Internal identity expiry
+## Upgrade a v0.8.0 operator installation
 
-The installer creates unique internal mail-bridge certificates valid for 365 days. These are **not browser certificates** and never need installation on user devices. Record the installation date and arrange operator-controlled renewal before expiry; expiry fails closed. Automatic renewal is not included. Obtain a tested renewal procedure before relying on long-term operation, and never replace identity files while the runtime is active.
+Stop and back up the original installation first. Keep that container and backup
+unchanged for rollback. Use the v0.9.0 helpers together, including
+`migrate-mail-ipc.py`, and the exact v0.9.0 image ID from its manifest:
+
+```text
+python3 runtime_backup.py restore PRIVATE_BACKUP_DIRECTORY webai-upgraded --port 18080 --image EXACT_V090_IMAGE_ID --migrate-mail-ipc
+```
+
+Windows uses `py -3`; macOS and Linux use `python3`. Replace both placeholders.
+Local mode requires the original origin port; HTTPS mode also requires the matching
+private mail upstream port. The operation creates a new container, converts only
+its copied internal mail configuration and creates a private IPC key. It neither
+modifies the source backup nor manages browser certificates. Legacy certificate
+files retained in the copied state are no longer used by the internal bridge.
+
+This migration supports complete v0.8.0 installations created by the operator
+helper. Custom entrypoints, incomplete installations and v0.7.1 upgrades are not
+covered. Verify your data and mail access before switching users; retain the
+original for rollback. Do not run both containers against the same external files
+or gateway endpoints simultaneously.
+
+## Internal mail connection
+
+In WebAI v0.9.0, the internal mail bridge uses an authenticated private local socket inside the container. It creates no internal certificates and has no certificate-expiry maintenance. Preserve its private key with the application state and backups. Never expose the bridge or copy its key into public configuration. Outbound IMAP/SMTP connections still validate the mail server's certificate. Browser HTTPS, when used, belongs to your external proxy and is managed by you.
 
 ## Verified scope
 
-Linux x64 installer/recovery qualification passed 11 synthetic checks: fresh readiness, loopback-only publication, login-page access, first Owner creation, password login, explicit mail-policy enablement, cold backup, restore readiness, preserved mail identity/configuration, restored login and restart after restore. No real mailbox was contacted during these checks.
+Linux x64 installer/recovery qualification passed 12 synthetic checks, including fresh readiness, loopback-only publication, account login, no internal certificate directory, cold backup and restored mail-key/configuration preservation. Seven copied-backup upgrade checks verified explicit migration, retained Owner login, restart stability and an unchanged source backup. Five browser smoke checks verified login, footer, Mailbox settings, refresh persistence and About build details. No real mailbox was contacted during these checks. These results do not qualify Windows/macOS hosts or every operator proxy configuration.
 
 Checksums detect corruption, not replacement of both file and manifest. Obtain files from the official release. See [evaluation limits](EVALUATION.md), [security boundaries](SECURITY.md), and [licence](LICENSE.md).
 
