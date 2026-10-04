@@ -1,6 +1,15 @@
 # WebAI version notes
 
-## 0.8.0-next.1
+## WebAI v0.9.0
+
+- Local-only browser access needs no certificate; network HTTPS belongs to your own proxy.
+- WebAI does not generate, install or renew deployment certificates or change hosts files or trust stores.
+- Internal mail authentication uses an owner-only local socket and key, with no internal certificate-expiry dependency.
+- Outbound IMAP/SMTP and AI-provider TLS validation remains enabled.
+- The footer displays **WebAI v0.9.0**; About retains technical build information for support.
+- An explicit copied-backup migration supports v0.8.0 operator installations, preserving the original for rollback. See [Installation](INSTALLATION.md).
+
+## WebAI v0.8.0 (archive tag: v0.8.0-next.1)
 
 Build identifier: `0.8.0-next.1+20261004.deployment.1`. The footer and About page display the running build rather than a generic preview label.
 
