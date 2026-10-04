@@ -98,7 +98,7 @@ You control the installation and its surrounding environment. Protect the host, 
 
 ## Try the evaluation demo
 
-Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **0.8.0-next.1**; the earlier **0.7.1** download does not include webmail, Data Search or optional signup. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
+Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **WebAI v0.9.0**; the earlier **v0.7.1** download does not include webmail, Data Search or optional signup. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
 
 Start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
 
