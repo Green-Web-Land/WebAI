@@ -1,7 +1,7 @@
 # Webmail
 
 Webmail uses your existing mail service; WebAI does not create a mail server or
-mailbox for you. This guide covers WebAI 0.8.0-next.1. The older 0.7.1 download
+mailbox for you. This guide covers WebAI v0.9.0. The older v0.7.1 download
 does not include integrated webmail.
 
 ## Open your mailbox
