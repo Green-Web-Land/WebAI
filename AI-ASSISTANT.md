@@ -51,7 +51,7 @@ OpenAI requests transmit your question and selected Help context to OpenAI. API 
 
 ## Document Library Data Search
 
-Open **Document Library → Data Search** to use **Search Document Library**. Help and Data Search remain separate: Help explains the software; Data Search retrieves authorized records. The version described here is 0.8.0-next.1; the older 0.7.1 download does not contain these search features.
+Open **Document Library → Data Search** to use **Search Document Library**. Help and Data Search remain separate: Help explains the software; Data Search retrieves authorized records. This guide describes WebAI v0.9.0; the older v0.7.1 download does not contain these search features.
 
 ### Search without sending documents to a model
 
