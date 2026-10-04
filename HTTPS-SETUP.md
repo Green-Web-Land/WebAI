@@ -17,7 +17,7 @@ hosted service or require opening it to the public internet.
 The release includes an explicit new-container helper in [Installation](INSTALLATION.md).
 These are deployment options, not an automatic setup wizard. Configure your own
 ports and origins together; do not copy another installation's addresses or secrets.
-This guide covers 0.8.0-next.1. The older 0.7.1 image does not include webmail.
+This guide covers WebAI v0.9.0. Use the matching installer and image; do not mix release files.
 
 ## Local-only HTTP: no browser certificate
 
@@ -52,8 +52,9 @@ must not be able to reach it. This is a configuration check, not automatic firew
 management. A compromised local computer remains outside this protection boundary.
 
 Certificate-free refers to the **browser connection**. IMAP/SMTP still require
-TLS and certificate validation. The private internal credential bridge still uses
-its own authenticated encryption; users do not install its certificates in browsers.
+TLS and certificate validation. The internal mail connection uses a private,
+authenticated local socket inside the container. It has no certificate to generate,
+trust or renew and is not exposed on a network port.
 
 ## One gateway, two application names
 
@@ -104,52 +105,11 @@ preview names. Choose names under a domain you control for this option.
 
 ## Network installation: optional self-signed certificates
 
-### Optional self-signed certificate helper
-
-The operator helper `prepare-browser-certificate.py` generates a unique server
-certificate for both chosen names. It **does not install trust**, alter DNS or
-edit hosts files. Python 3 and OpenSSL must already be available on the operator's
-computer. Use a new private output directory; existing directories are refused.
-The helper is tested on Linux; Windows/macOS execution remains to be qualified.
-
-Windows PowerShell (replace the example names with your installation names):
-
-```powershell
-py -3 --version
-openssl version
-py -3 .\prepare-browser-certificate.py --application-host webai.example.com --mail-host mail.example.com --output .\webai-tls
-```
-
-On macOS or Linux:
-
-```sh
-python3 --version
-openssl version
-python3 prepare-browser-certificate.py --application-host webai.example.com --mail-host mail.example.com --output ./webai-tls
-```
-
-If OpenSSL is missing, stop and install it using your organization's approved
-software source; the helper does not install software automatically. The output
-contains `browser.crt`, the secret `browser.key`, and `certificate-info.json`
-(names, SHA-256 fingerprint and validity). Default validity is 90 days.
-
-Protect the output directory before use. On Windows, inspect its Security/ACL
-settings and restrict access to the operator and required service identity;
-POSIX-style file modes are not a substitute for Windows ACLs. Copy the certificate
-and key only to the authorized gateway. Share only the public certificate and
-verified fingerprint with client administrators. Never send the private key to
-users or commit it to GitHub.
-
-For renewal, generate into a different private directory, verify it, and perform
-an administrator-controlled gateway replacement with rollback. A replacement
-self-signed certificate may require clients to trust the new certificate again.
-This helper creates a server certificate, not a private CA. The CA-based alternative
-below is appropriate when administrators already manage device trust centrally.
-
-Generate an installation-specific private CA and certificates covering the exact
-chosen names. Protect the CA signing key separately from the application runtime
-where practical. Distribute only the public trust certificate to client devices;
-never distribute the CA private key.
+WebAI does not generate, install or renew certificates. If you choose a self-signed
+certificate or private certificate authority, provision it using your own gateway
+and your organization's tools. Configure coverage for both application and mail
+names. Protect private keys outside the application and arrange renewal yourself.
+A publicly trusted certificate is generally easier for users than manual trust.
 
 Before trusting it, verify its fingerprint through a separate trusted channel,
 its purpose, validity and ownership. Installing a CA grants trust to certificates

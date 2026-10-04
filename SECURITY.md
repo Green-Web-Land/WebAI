@@ -18,6 +18,12 @@ Browser sign-ins persist across restarts using a cookie inaccessible to ordinary
 
 ## Operator responsibilities
 
+WebAI v0.9.0 does not generate, install or renew deployment certificates, modify
+trust stores or edit hosts files. Its internal mail bridge is an authenticated
+owner-only Unix socket, not a network service. The local IPC key belongs in the
+private state backup. This does not weaken external IMAP/SMTP or AI-provider TLS
+validation, nor remove application authentication and authorization checks.
+
 See [connection setup](HTTPS-SETUP.md) for certificate-free loopback-only access
 and network HTTPS gateway, DNS and certificate choices.
 Browser trust and the container's trust of external IMAP/SMTP servers are separate

@@ -4,6 +4,17 @@ WebAI's demo is intended for testing, usability feedback, enhancement proposals 
 
 ## Developer verification
 
+For WebAI v0.9.0, the isolated database-backed recovery, mail-session and enrollment
+suite passed 231 checks, with 37 additional entry/browser-policy/endpoint checks.
+The exact candidate image passed 12 fresh-install/backup/restore checks, five
+browser smoke checks and seven copied-v0.8-backup upgrade checks. A dedicated
+internal-connection proof passed 20 checks plus its PHP client checks. The existing
+outbound-mail test image passed 11 protocol checks, including wrong-certificate
+hostname rejection. No real mailbox or paid AI provider was contacted.
+The complete historical Data Search browser suite was not rerun for v0.9.0.
+
+### Earlier feature verification
+
 For the 0.8.0-next.1 search/navigation build, 179 synthetic service checks and 15 navigation source checks passed. Its footer-only successor, `0.8.0-next.1+20261004.deployment.1`, passed 32 packaged browser checks, including the exact version display. Browser coverage included mail, Books and Files search, saved questions/results, exports, per-account isolation, session revocation, menu ordering and Books/Files route switching. The service checks were not rerun for the footer-only change. These are developer checks, not independent QA or a guarantee for every environment.
 
 Mail search and sending/receiving were also confirmed by the user on their selected provider. That does not establish compatibility with every mail service. No live paid OpenAI request was made in this qualification.
@@ -17,7 +28,7 @@ The provider implementation had 40 component, 44 API and 12 role-specific browse
 ## Evaluation limitations
 
 - The 0.8 installer and recovery helpers passed 11 isolated Linux checks against the exact release image, including Owner setup, login, mail configuration preservation, cold backup, restore and restart. Windows/Mac installation and broader host coverage remain unverified.
-- Internal mail-bridge identities created by the installer expire after 365 days. Operator-controlled renewal is required; automatic renewal is not included.
+- WebAI v0.9.0 uses an authenticated private local socket for its internal mail bridge; there are no internal certificates to renew. Operator-managed browser HTTPS and outbound mail-server certificate validation remain separate responsibilities.
 - Forgotten-Owner recovery does not yet have a fully verified procedure.
 - Rapid or shared-address browser traffic can encounter request throttling.
 - Accessibility, translation and browser coverage is limited.
