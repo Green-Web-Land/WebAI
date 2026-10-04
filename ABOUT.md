@@ -1,8 +1,10 @@
 # About WebAI
 
-WebAI brings Document Library, Files and Folders, Write a Book and intelligent Help into one browser workspace. Run it in your own environment, organize your work and find guidance without leaving the application.
+WebAI brings Document Library, Files and Folders, Write a Book, webmail, Data Search and intelligent Help into one browser workspace. Run it in your own environment, organize your work and find guidance without leaving the application.
 
-## Publisher
+The footer identifies the running WebAI version. **About → Software versions** shows the same application version and the included component versions. Use these values when requesting support.
+
+## Founder
 
 **Massoud Fattahi, Canada** — Green Web Land.
 
@@ -32,6 +34,6 @@ Use repository Issues for non-sensitive feedback. Contact the publisher privatel
 
 ## Your installation
 
-WebAI is downloadable software, not a hosted workspace. Protect your host, network, browser and backups as well as the application. AI Assistant explains published Help; it cannot operate your subsystems or access private documents.
+WebAI is downloadable software, not a hosted workspace. Protect your host, network, browser and backups as well as the application. The Help Assistant explains published guidance. Separate Data Search pages use application-enforced permissions to find your records; models interpret questions without receiving source contents or search results. Search does not change source data.
 
 [Return to overview](README.md)

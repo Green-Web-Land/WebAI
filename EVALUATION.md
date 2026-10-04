@@ -4,6 +4,10 @@ WebAI's demo is intended for testing, usability feedback, enhancement proposals 
 
 ## Developer verification
 
+For the 0.8.0-next.1 search/navigation build, 179 synthetic service checks and 15 navigation source checks passed. Its footer-only successor, `0.8.0-next.1+20261004.deployment.1`, passed 32 packaged browser checks, including the exact version display. Browser coverage included mail, Books and Files search, saved questions/results, exports, per-account isolation, session revocation, menu ordering and Books/Files route switching. The service checks were not rerun for the footer-only change. These are developer checks, not independent QA or a guarantee for every environment.
+
+Mail search and sending/receiving were also confirmed by the user on their selected provider. That does not establish compatibility with every mail service. No live paid OpenAI request was made in this qualification.
+
 The combined source-built image includes the application, relational database and local model. A bounded recovery batch passed 29 checks, covering restart and clean transfer of accounts, sessions, manuscripts, folders and encrypted-key material. An offline local-model check succeeded without network access.
 
 The provider implementation had 40 component, 44 API and 12 role-specific browser checks. OpenAI behavior used a mock provider, not a real paid call. These checks occurred across development increments; they are not one complete regression of every feature against the final image. Copying encrypted-key material does not itself demonstrate a live provider request after restore.
@@ -12,13 +16,14 @@ The provider implementation had 40 component, 44 API and 12 role-specific browse
 
 ## Evaluation limitations
 
-- The documented Linux startup command passed eight isolated fresh-container checks, including Owner setup, login and stop/start persistence. Windows/Mac installation and broader host coverage remain unverified.
+- The 0.8 installer and recovery helpers passed 11 isolated Linux checks against the exact release image, including Owner setup, login, mail configuration preservation, cold backup, restore and restart. Windows/Mac installation and broader host coverage remain unverified.
+- Internal mail-bridge identities created by the installer expire after 365 days. Operator-controlled renewal is required; automatic renewal is not included.
 - Forgotten-Owner recovery does not yet have a fully verified procedure.
 - Rapid or shared-address browser traffic can encounter request throttling.
 - Accessibility, translation and browser coverage is limited.
-- HTTPS and reverse-proxy configurations are not yet fully verified.
+- The tested private HTTPS gateway and local-only synthetic profile do not qualify every reverse proxy, certificate setup or network environment.
 
-AI database actions, inter-Hub features and other future expansions are not demo features.
+Read-only Data Search is available in the version described here. Arbitrary SQL, AI-driven source changes, inter-Hub features and general autonomous operations are not included.
 
 ## Report a defect
 

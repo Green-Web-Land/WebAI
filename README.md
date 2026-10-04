@@ -1,14 +1,14 @@
 # WebAI
 
-**Your documents, your files, your ideas — one workspace to bring them together.**
+**Your documents, your files, your writing and your email — one workspace to bring them together.**
 
 WebAI gives everyday work a clear home. Organize documents, manage files, shape a manuscript and find guidance without leaving your workspace. A familiar browser interface puts the next step within reach, while revision history and explicit confirmations help you stay in control.
 
-[Explore the features](#explore-your-workspace) · [Meet AI Assistant](AI-ASSISTANT.md) · [Read the user guide](USER-GUIDE.md) · [Help shape WebAI](EVALUATION.md)
+[Explore the features](#explore-your-workspace) · [Search your data](AI-ASSISTANT.md#search-across-your-working-subsystems) · [Open your mail](WEBMAIL.md) · [Read the user guide](USER-GUIDE.md) · [What's new](RELEASE-NOTES.md)
 
 ## A look at WebAI
 
-![WebAI Home showing introductions to Document Library, Files and Folders, Write a Book and intelligent Help, with navigation groups collapsed](images/webai-home.jpg)
+![WebAI Home showing introductions to the workspace with its application version in the footer](images/webai-home-current.png)
 
 An actual screenshot of the evaluation workspace using a synthetic account. Home introduces the features; the separate Dashboard brings together availability and the subsystem summaries you are authorized to see.
 
@@ -48,6 +48,28 @@ Use built-in Help without a model, local intelligent Help without paid API reque
 
 [How AI Assistant works](AI-ASSISTANT.md)
 
+### Find it with Data Search
+
+**Ask in your own words. Keep your source content out of the model.**
+
+Find a manuscript about a blue bird, a document containing project notes, a file in an authorized folder, or a message in your mailbox. Use keywords directly without AI, or let the local model interpret your question. WebAI applies permissions and formats the results. No document, manuscript, file content or email result is sent back to the model for an answer.
+
+Save useful questions, rerun them later, compare dated snapshots, and export results as Markdown, text or a print-friendly page. Library keeps Saved questions and Saved results beside the search controls. Books and Files keep their Saved Searches panel on the search page.
+
+[Search scope, limits and optional providers](AI-ASSISTANT.md#search-across-your-working-subsystems)
+
+![Search Document Library with saved questions and dated results together on one page](images/library-data-search.png)
+
+The example uses synthetic data. Expand only the panels you need; saved questions and earlier results stay within reach.
+
+### Your mail, alongside your work
+
+**Connect your existing accounts. Keep WebAI open.**
+
+Save multiple private IMAP/SMTP configurations in **Office → Mailbox settings**. Open a mailbox in its own browser tab for reading and composing, or use **Search email** inside WebAI. Passwords are write-only through the application; each account controls its own connections.
+
+[Set up webmail](WEBMAIL.md) · [Choose local-only or HTTPS access](HTTPS-SETUP.md)
+
 ![AI Assistant explains file and manuscript workflows with direct links to relevant Help](images/ai-assistant-example.png)
 
 ### Guidance inside the application
@@ -76,7 +98,7 @@ You control the installation and its surrounding environment. Protect the host, 
 
 ## Try the evaluation demo
 
-**Download the demo under QA:** [WebAI 0.7.1 Preview](https://github.com/Green-Web-Land/WebAI/releases/tag/v0.7.1-preview.1). Read the [installation guide](INSTALLATION.md) and download all image parts, the manifest and matching operator helpers. WebAI runs in your own environment; it is not a hosted service.
+Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **0.8.0-next.1**; the earlier **0.7.1** download does not include webmail, Data Search or optional signup. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
 
 Start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
 
