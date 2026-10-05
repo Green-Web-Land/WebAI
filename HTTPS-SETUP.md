@@ -1,183 +1,96 @@
 # Connection setup for WebAI and webmail
 
-Choose local-only HTTP or administrator-managed HTTPS. Ordinary users should
-receive working URLs. Certificate trust is managed by the device owner, never
-silently installed by WebAI.
-WebAI remains self-hosted software; obtaining a certificate does not make it a
-hosted service or require opening it to the public internet.
+WebAI v0.9.1 defaults to HTTP with one IPv4 address and separate ports.
+Browser hostnames and certificates are not required. HTTPS is an optional,
+operator-managed layer outside the application image.
 
-## Choose your installation method
-
-| Method | Administrator prepares | What users need |
+| Access | WebAI | Webmail |
 | --- | --- | --- |
-| One computer, local-only HTTP | Loopback-only Docker port publication | Local WebAI URL; no browser certificate |
-| Optional self-signed HTTPS | Two names, a unique certificate and private gateway routing | Manual certificate verification and trust |
-| Your own HTTPS proxy | Two names, certificate coverage and private HTTP upstreams | Your configured WebAI URL |
+| Local-only default | `http://127.0.0.1:18080/workspace` | `http://127.0.0.1:18081/start` |
+| LAN example | `http://192.168.1.20:18080/workspace` | `http://192.168.1.20:18081/start` |
+| Optional external HTTPS | Your configured application origin | Your configured mail origin |
 
-The release includes an explicit new-container helper in [Installation](INSTALLATION.md).
-These are deployment options, not an automatic setup wizard. Configure your own
-ports and origins together; do not copy another installation's addresses or secrets.
-This guide covers WebAI v0.9.0. Use the matching installer and image; do not mix release files.
+Choose installation arguments from [Installation](INSTALLATION.md).
+Use a specific host IPv4 address, not wildcard publication. WebAI does not
+configure your firewall, tunnels, forwarding, DNS, hosts files or trust stores.
 
-## Local-only HTTP: no browser certificate
+## Local and LAN HTTP
 
-Use this mode only when the browser and Docker run on the same computer.
-The names are `app.webai.localhost` and `mail.webai.localhost`; they keep the
-application and mail cookies separate. Do not substitute a LAN address.
+Use **Open mail** to open webmail in a separate tab. The application gateway
+publishes container port 8082 and the mail gateway publishes 8083. The installer
+maps these to your chosen host ports. Internal application/mail backends,
+database, models and credential bridge must stay private.
 
-The local gateway listens on container port **8082**. Publish it only as
-`127.0.0.1:18080:8082` (or another chosen host port), not `18080:8082` or
-`0.0.0.0:18080:8082`. Do not publish the application, mail, database or bridge
-backend ports. Do not use host networking. Your browser URLs are then:
+On Windows, macOS and Linux, IP-only access needs no hosts-file edit.
+`127.0.0.1` refers to the computer running the browser; use the server's reachable
+IP for another computer. Configure advertised origins together with your ports.
+Changing only a URL or only a port in an existing installation is not a migration.
 
-- `http://app.webai.localhost:18080/workspace`
-- `http://mail.webai.localhost:18080/start` (normally opened through **Open mail**)
+HTTP does not encrypt or authenticate the browser-to-server connection. Network
+observers or attackers may intercept or modify passwords, sessions and content.
+Use an external HTTPS gateway for networks where you do not accept that risk.
 
-The installation configuration must use `AI_BROWSER_MODE=local-http`, those exact
-two origins with the same host port, and proxy peer `127.0.0.1`. The internal gateway
-uses the installation's private proxy secret. Provision configuration before
-starting the runtime; do not edit only one setting in an existing installation.
+Ports separate browser origins but **not cookie scope**. WebAI and its bundled
+webmail remain mutually trusted on the same IP. Port-specific session names,
+cookie forwarding allowlists and exact-origin checks are implemented; do not
+assume these isolate an unrelated untrusted service hosted on another port.
 
-On **Windows**, run Docker with Linux containers and open the local URL on that
-same Windows computer. On **macOS**, open it on the Mac running Docker. On
-**Linux**, open it on the Linux computer running Docker. No hosts-file or trust-store
-edit is part of this mode. If your browser or managed DNS policy does not resolve
-these localhost names, stop and check that policy; do not change them to a LAN IP
-or widen the Docker binding to work around it.
+## Optional operator-managed HTTPS
 
-To inspect published ports, run `docker port <container-name>` in PowerShell
-(Windows) or Terminal (macOS/Linux). For this mode, the only browser publication
-should be `8082/tcp -> 127.0.0.1:18080` with your chosen port. A remote computer
-must not be able to reach it. This is a configuration check, not automatic firewall
-management. A compromised local computer remains outside this protection boundary.
+WebAI does not generate, load or renew browser certificates. A self-signed
+certificate, if desired, belongs to a separate gateway, not the application image.
+Trust decisions and renewal belong to the operator/device owner. No tool
+automatically edits trust stores or hosts files.
 
-Certificate-free refers to the **browser connection**. IMAP/SMTP still require
-TLS and certificate validation. The internal mail connection uses a private,
-authenticated local socket inside the container. It has no certificate to generate,
-trust or renew and is not exposed on a network port.
+The supported `--mode https` configuration uses separate HTTPS origins and private
+loopback HTTP upstreams. The gateway must:
 
-## One gateway, two application names
+- Preserve each configured Host, including a nondefault port.
+- Overwrite `X-Forwarded-Proto` with `https`.
+- Overwrite `X-WebAI-Preview-Proxy` with the installation's private proxy key.
+- Support WebSocket upgrades for WebAI.
+- Match the configured proxy peer and prevent clients from supplying trusted headers.
 
-Use separate names such as `webai.example.com` and `mail.example.com` (examples
-only). One gateway can handle HTTPS for both. A single certificate may cover both
-names, or the gateway may manage separate certificates. Both names must resolve
-correctly from every client device, and each connection must present a valid
-certificate for its requested name.
+Privately retrieve that key with `docker exec webai printenv AI_PREVIEW_PROXY_KEY`.
+Never put it in public examples, logs or chat. Route app and mail to the private
+upstream ports printed by the matching installer. Do not assume a Docker peer
+address from another host. Qualify your own gateway before relying on it.
 
-Keep application and mail upstream ports private. The gateway must preserve the
-expected host and use the application's supported trusted-proxy configuration;
-never accept arbitrary client-supplied HTTPS/proxy headers. Configure exact
-application and mail origins together. Validate redirects, secure cookies, and
-WebAI's live browser connection after setup.
+The optional hostname-based HTTPS mode does not impose hostnames on ordinary
+IP-only HTTP users.
 
-The browser-facing certificate is separate from IMAP/SMTP certificates. Webmail
-must also verify the mail server's identity and require the configured TLS mode.
-Making the browser trust WebAI does not fix an untrusted external mail server.
+## Outbound mail is separate
 
-## Network installation: your own HTTPS gateway
+IMAP/SMTP require validated TLS; mandatory STARTTLS remains mandatory.
+Accepting browser HTTP never disables validation of an external mail server.
+The internal credential bridge uses an authenticated local socket, not a public
+network listener or a certificate-based service.
 
-1. Ask the network administrator for two approved DNS names and private upstreams.
-2. Install a certificate and full intermediate chain covering both names at the
-   gateway. Keep private keys out of repositories, public downloads and logs.
-3. Configure both application origins and supported proxy trust settings.
-4. Verify browser access without warnings, then test sign-in and mail launch.
-5. Assign responsibility for certificate renewal, monitoring and rollback.
+## Verify your installation
 
-No per-user hosts-file changes are needed when the network DNS resolves the names.
-
-### Owned domain with automatic certificates
-
-Use an ACME-capable gateway or certificate manager. For an internal-only server,
-DNS-01 proves control of the domain through public DNS TXT records without exposing
-the application to the internet. Configure client DNS to resolve the application
-names to the intended private address. Certificate issuance and name resolution
-are separate tasks.
-
-Use narrowly scoped DNS credentials or delegated validation. Do not hand the
-application unrestricted control over your domain. Automate renewal and gateway
-reload, monitor expiry, and test renewal before relying on it. Public certificate
-issuance may disclose hostnames through certificate transparency; do not put
-confidential information in names.
-
-See [Let's Encrypt DNS-01 guidance](https://letsencrypt.org/docs/challenge-types/#dns-01-challenge).
-Public certificate authorities do not issue certificates for our private `.test`
-preview names. Choose names under a domain you control for this option.
-
-## Network installation: optional self-signed certificates
-
-WebAI does not generate, install or renew certificates. If you choose a self-signed
-certificate or private certificate authority, provision it using your own gateway
-and your organization's tools. Configure coverage for both application and mail
-names. Protect private keys outside the application and arrange renewal yourself.
-A publicly trusted certificate is generally easier for users than manual trust.
-
-Before trusting it, verify its fingerprint through a separate trusted channel,
-its purpose, validity and ownership. Installing a CA grants trust to certificates
-it signs, not only to one WebAI page. Obtain explicit device-owner or administrator
-approval. Managed devices may receive trust through existing organizational policy.
-
-- **Windows:** use the approved Windows certificate-management process for the
-  intended user or machine scope. Do not silently install into machine-wide trust.
-- **macOS:** use the approved Keychain or device-management process.
-- **Linux:** use the distribution and browser's supported trust-store procedure.
-
-Browser trust behavior varies: verify every supported browser after installation.
-Provide removal instructions and a renewal/rotation plan. Docker cannot make a
-certificate trusted on users' computers merely by installing it inside the image.
-
-See [local certificate guidance](https://letsencrypt.org/docs/certificates-for-localhost/).
-
-## Do users need to edit their hosts file?
-
-**Normally, no.** Configure DNS once at the network level. A hosts-file entry is a
-development fallback when DNS is unavailable; it affects only that device and
-does not establish certificate trust. Containers' internal name mappings also do
-not configure the user's browser.
-
-Do not copy the preview's localhost mappings to another installation. Loopback
-points to the computer running the browser, not automatically to the Docker server.
-
-## Acceptance checklist
-
-### Read-only configuration check
-
-Run the supplied `check-browser-installation.py` helper against your container.
-It reads Docker configuration, prints no passwords or proxy-secret values, and
-does not modify the container, trust stores, hosts files, DNS or firewall.
-Python 3 and the Docker command-line client must already be installed.
-
-Windows PowerShell:
+On Windows:
 
 ```powershell
 py -3 .\check-browser-installation.py webai
 ```
 
-macOS or Linux Terminal:
+On macOS or Linux:
 
 ```sh
-python3 ./check-browser-installation.py webai
+python3 check-browser-installation.py webai
 ```
 
-Replace `webai` with your container name. An exit code of zero means the checked
-configuration passed; it does **not** certify connectivity, certificate trust,
-mail login or complete installation security. Fix reported errors before use.
-Writable state at `/state` is required; it may live inside the container without
-a mandatory external volume. Back up before replacing or deleting it. For an external HTTPS
-gateway, verify that gateway and its private network separately.
+The checker reads Docker configuration without changing it or printing secrets.
+A pass does not establish mail authentication, network reachability or complete
+security. Also check:
 
-### Functional checks
+- Both configured IP ports are reachable from intended clients.
+- Local-only installations are not remotely reachable.
+- Open mail opens the correct mailbox in a new tab without replacing WebAI.
+- The user performs the first real mail login; stop on an uncertain-password error.
+- Sign-out/revocation prevents continued mail access.
+- Database/model/bridge ports remain private.
+- Optional HTTPS gateways have separately verified identity and trust.
 
-- Both names resolve to the intended installation from each supported client.
-- Local HTTP: only the loopback gateway port is published, and both localhost URLs work.
-- HTTPS: names and expiry are valid; trust is established manually or by your existing managed certificate policy.
-- Gateway upstreams, database, model service and credential bridge are not public.
-- IMAP/SMTP certificate verification remains enabled; STARTTLS is mandatory where configured.
-- Open mail reaches the correct webmail service. The user performs the first real login.
-- Authentication failure stops the test; do not repeatedly retry an uncertain password.
-- No real email is sent as part of certificate checks.
-- Sign-out/revocation behavior and renewal are verified, with recovery documented.
-
-Never use “Continue unsafe” or disabled verification as an installation procedure.
-Never ship a shared private key in a downloadable Docker image.
-
-[Installation](INSTALLATION.md) · [Security boundaries](SECURITY.md)
+Do not send real email merely to test browser transport. Keep private backups
+before any replacement. See [security boundaries](SECURITY.md).

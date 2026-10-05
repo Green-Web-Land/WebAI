@@ -1,7 +1,7 @@
 # Webmail
 
 Webmail uses your existing mail service; WebAI does not create a mail server or
-mailbox for you. This guide covers WebAI v0.9.0. The older v0.7.1 download
+mailbox for you. This guide covers WebAI v0.9.1. The older v0.7.1 download
 does not include integrated webmail.
 
 ## Open your mailbox
@@ -23,9 +23,10 @@ privately with your mail administrator or existing trusted mail client first.
 ## Secure access
 
 Choose the appropriate [connection setup](HTTPS-SETUP.md) for WebAI and webmail:
-certificate-free HTTP on the same computer with loopback-only publication, or
-HTTPS for network access. HTTPS may use your existing proxy or an optional
-self-signed certificate that you verify and trust manually. WebAI does not change
+HTTP using one IPv4 address and separate ports, either loopback-only or on your
+chosen LAN address. HTTP does not encrypt browser traffic. Optional HTTPS belongs
+to an external gateway managed by you, not the application image. No browser
+hostnames or certificates are required for IP-only HTTP. WebAI does not change
 your trust stores or hosts files. Do not ignore unexpected certificate warnings.
 Mail-server certificate verification remains required independently of browser
 trust. SMTP STARTTLS must complete before credentials are sent when that mode is

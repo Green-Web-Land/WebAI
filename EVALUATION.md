@@ -4,6 +4,21 @@ WebAI's demo is intended for testing, usability feedback, enhancement proposals 
 
 ## Developer verification
 
+The versioned v0.9.1 candidate passed 68 targeted checks: 26 application
+origin/proxy, 16 installer/configuration, 6 PHP policy, 2 real nginx cookie-map,
+7 packaged installation/recovery, 8 Chromium checks and 3 image/dependency checks. Browser checks covered
+IP-only sign-in, separate-tab Roundcube login with a synthetic mailbox, reload
+and parent sign-out revocation. The user subsequently confirmed real LAN IP-only
+mailbox access on the earlier functional candidate. The versioned image also
+passed its exact footer check. Download-part export and publication are separate
+steps; these tests do not establish that unpublished downloads are available.
+
+Windows/macOS Docker-host runtime, a fresh SMTP send, and the complete Data Search
+suite were not repeated for this change. This is developer verification, not
+independent QA or a guarantee for all environments.
+
+### Earlier v0.9.0 verification
+
 For WebAI v0.9.0, the isolated database-backed recovery, mail-session and enrollment
 suite passed 231 checks, with 37 additional entry/browser-policy/endpoint checks.
 The exact candidate image passed 12 fresh-install/backup/restore checks, five

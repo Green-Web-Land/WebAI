@@ -1,5 +1,22 @@
 # WebAI version notes
 
+## WebAI v0.9.1
+
+- HTTP-first installation uses a literal IPv4 address and separate WebAI/webmail ports.
+- Choose local-only binding or a specific network address. No browser hostname,
+  hosts-file edit or browser certificate is required.
+- Webmail opens in a separate tab; WebAI stays open. Session cookies use distinct
+  port-specific names, with backend cookie filtering and exact-origin checks.
+- Browser certificate management is outside the application image. An optional
+  external HTTPS gateway is operated by you.
+- Outbound IMAP/SMTP and AI-provider TLS verification remains enabled.
+- Footer: **WebAI v0.9.1**. About keeps detailed build information for support.
+
+Use v0.9.1 helpers and the exact image ID from its matching manifest. Do not use
+these instructions with the published v0.9.0 image. General conversion of an
+existing hostname-based installation is not supplied as an automatic upgrade.
+Back up and retain your existing installation before planning a replacement.
+
 ## WebAI v0.9.0
 
 - Local-only browser access needs no certificate; network HTTPS belongs to your own proxy.

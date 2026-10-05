@@ -35,7 +35,7 @@ Open **AI Assistant → Assistant settings**. The settings panels start collapse
 
 If OpenAI is disabled in the provider list, ask the Owner to allow it. Saving settings or a key does not itself make a paid request. Select **Local** or **Help-only** to stop using OpenAI for subsequent questions; there is no automatic paid fallback.
 
-**Use HTTPS for network access before entering a real API key.** Certificate-free HTTP is limited to the supported loopback-only installation on the same computer. Do not submit credentials over LAN/public HTTP. See [connection setup](HTTPS-SETUP.md).
+**HTTP does not protect API keys between your browser and WebAI.** IP-only HTTP supports local or LAN installation, but an external HTTPS gateway is recommended before entering real credentials over a shared/untrusted network. Outbound HTTPS to an AI provider does not encrypt the browser connection. See [connection setup](HTTPS-SETUP.md).
 
 ![Assistant settings showing personal provider selection, a blank write-only key field and the Owner provider policy](images/assistant-settings.jpg)
 
@@ -51,7 +51,7 @@ OpenAI requests transmit your question and selected Help context to OpenAI. API 
 
 ## Document Library Data Search
 
-Open **Document Library → Data Search** to use **Search Document Library**. Help and Data Search remain separate: Help explains the software; Data Search retrieves authorized records. This guide describes WebAI v0.9.0; the older v0.7.1 download does not contain these search features.
+Open **Document Library → Data Search** to use **Search Document Library**. Help and Data Search remain separate: Help explains the software; Data Search retrieves authorized records. This guide describes WebAI v0.9.1; the older v0.7.1 download does not contain these search features.
 
 ### Search without sending documents to a model
 

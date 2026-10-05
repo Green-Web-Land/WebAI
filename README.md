@@ -68,7 +68,7 @@ The example uses synthetic data. Expand only the panels you need; saved question
 
 Save multiple private IMAP/SMTP configurations in **Office → Mailbox settings**. Open a mailbox in its own browser tab for reading and composing, or use **Search email** inside WebAI. Passwords are write-only through the application; each account controls its own connections.
 
-[Set up webmail](WEBMAIL.md) · [Choose local-only or HTTPS access](HTTPS-SETUP.md)
+[Set up webmail](WEBMAIL.md) · [Choose local, LAN or external HTTPS access](HTTPS-SETUP.md)
 
 ![AI Assistant explains file and manuscript workflows with direct links to relevant Help](images/ai-assistant-example.png)
 
@@ -98,7 +98,7 @@ You control the installation and its surrounding environment. Protect the host, 
 
 ## Try the evaluation demo
 
-Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **WebAI v0.9.0**; the earlier **v0.7.1** download does not include webmail, Data Search or optional signup. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
+Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **WebAI v0.9.1**; v0.9.0 does not have the same IP-only installer. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
 
 Start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
 
