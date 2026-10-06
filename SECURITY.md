@@ -18,14 +18,20 @@ Browser sign-ins persist across restarts using a cookie inaccessible to ordinary
 
 ## Operator responsibilities
 
-WebAI v0.9.0 does not generate, install or renew deployment certificates, modify
+WebAI v0.9.2-preview.1 does not generate, install or renew deployment certificates, modify
 trust stores or edit hosts files. Its internal mail bridge is an authenticated
 owner-only Unix socket, not a network service. The local IPC key belongs in the
 private state backup. This does not weaken external IMAP/SMTP or AI-provider TLS
 validation, nor remove application authentication and authorization checks.
 
-See [connection setup](HTTPS-SETUP.md) for certificate-free loopback-only access
-and network HTTPS gateway, DNS and certificate choices.
+See [connection setup](HTTPS-SETUP.md) for certificate-free local or LAN HTTP
+and an optional external HTTPS gateway. LAN HTTP is supported but exposes login
+credentials, sessions and content to interception and modification. Operators
+choose and protect their exposure; a private LAN is not inherently encrypted.
+Ports separate browser origins, not cookie scope. WebAI and bundled webmail
+remain mutually trusted on one IP; do not host untrusted applications on other
+ports of that IP and assume cookie isolation. Distinct session-cookie names,
+gateway cookie allowlists and exact-origin checks remain enabled.
 Browser trust and the container's trust of external IMAP/SMTP servers are separate
 requirements. Neither a hosts-file edit nor a certificate installed inside Docker
 establishes browser trust. Never bundle a shared private key or instruct users to
@@ -33,7 +39,7 @@ bypass browser warnings. Private-CA trust installation requires explicit consent
 
 - Restrict access to the host and Docker daemon. Never expose or mount its socket into this application.
 - Keep system software maintained and protect network access. Do not expose internal database or model ports.
-- Use HTTPS for remote browser access. Unencrypted HTTP is not suitable for real provider keys or public exposure.
+- An external HTTPS gateway is recommended for shared/untrusted networks and public access. Outbound mail TLS does not protect an HTTP browser connection.
 - Protect backups and the encryption keyring together. Store recovery copies with access controls appropriate to their contents.
 - Expose only explicitly selected optional host folders, preferably read-only. A container is not a substitute for host filesystem permissions.
 
@@ -44,3 +50,5 @@ Internet-facing operation and reverse-proxy configurations have not been fully v
 Do not place passwords, tokens, runtime backups, private documents or exploitable sensitive details in a public issue. Contact the publisher privately at [us@itisthebest.com](mailto:us@itisthebest.com) with a short description and request a suitable way to share sensitive evidence. Do not email credentials or complete backups.
 
 [Return to overview](README.md)
+
+Public Home exposes only introductory content. Optional Owner/Admin management restrictions are independent and default off; HTTPS alone does not bypass them. Read [management access](MANAGEMENT-ACCESS.md). Temporary-account expiry also revokes protected access; see [demo registration](DEMO-AND-HOSTING.md).

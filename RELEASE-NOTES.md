@@ -1,46 +1,13 @@
-# WebAI version notes
+# WebAI v0.9.2-preview.1
 
-## WebAI v0.9.0
+Build identity: `0.9.2-preview.1+20261006.cleanup.1`.
 
-- Local-only browser access needs no certificate; network HTTPS belongs to your own proxy.
-- WebAI does not generate, install or renew deployment certificates or change hosts files or trust stores.
-- Internal mail authentication uses an owner-only local socket and key, with no internal certificate-expiry dependency.
-- Outbound IMAP/SMTP and AI-provider TLS validation remains enabled.
-- The footer displays **WebAI v0.9.0**; About retains technical build information for support.
-- An explicit copied-backup migration supports v0.8.0 operator installations, preserving the original for rollback. See [Installation](INSTALLATION.md).
+This pre-release combines the workspace layout corrections, configurable temporary User registration, optional independent Owner/Admin management-login restrictions, and a public Home page with an optional Owner-managed hosting introduction.
 
-## WebAI v0.8.0 (archive tag: v0.8.0-next.1)
+Account screens use the shared workspace form layout. Temporary registrations can receive a configured lifetime in hours; expired accounts lose access, and an administrator can convert them to permanent access. Hosting text supports a bounded Markdown subset and an optional validated image. Guest Home access does not grant access to private workspace data or settings.
 
-Build identifier: `0.8.0-next.1+20261004.deployment.1`. The footer and About page display the running build rather than a generic preview label.
+The application remains HTTP-first. Browser HTTPS and the authenticated private management gateway are operator responsibilities. The gateway helper is included with the matching operator package; enabling restrictions requires the documented management path. Do not infer a trusted management connection from a forwarded IP header alone.
 
-### Find, save and revisit
+Use the matching image manifest, operator helpers and documentation. WebAI Setup has its own version and is a read-only Linux x64 prototype; it does not install or update WebAI.
 
-- Read-only Data Search for Document Library, Write a Book, Files and Folders, and email.
-- Local models interpret search questions; application code performs searches and formats results without sending retrieved content to the model.
-- Optional private and administrator-managed OpenAI search connections for supported scopes, with explicit paid consent and no automatic paid fallback.
-- Saved questions, dated result snapshots, Markdown/text exports and browser printing. Access is checked again when saved results are viewed or exported.
-- Functional MCP search tools, not arbitrary SQL or shell execution.
-
-### Email and accounts
-
-- Multiple private IMAP/SMTP configurations per user; webmail opens in a separate tab.
-- Email search within the selected account and folder, with documented coverage limits.
-- Account email addresses, optional User-only signup, administrator approval and optional email verification codes.
-- Administrator-managed support SMTP; optional support IMAP is reserved for future incoming-mail features.
-- Local-only browser HTTP or administrator-managed HTTPS. WebAI does not edit hosts files or install certificate trust.
-
-### A clearer workspace
-
-- Alphabetized groups and ordinary submenus, with Help and AI Assistant afterward.
-- Separate Documents and Office groups; Files and Folders under System Administration.
-- **Search Document Library** combines search controls, Saved questions and Saved results.
-- Books and Files keep saved-search panels on their Data Search pages; their redundant Saved Searches submenu links are removed.
-- Switching Books/Files search pages and browser Back/Forward selects the correct subsystem and clears the previous page's transient search state.
-
-### Scope and compatibility
-
-The earlier 0.7.1 download does not contain these additions. Use an image and operator configuration matching your intended version. Do not delete an existing runtime container before verifying a recoverable backup and data transfer.
-
-This is an evaluation build with developer testing, not independent production certification. See [evaluation coverage](EVALUATION.md), [search limits](AI-ASSISTANT.md), [webmail](WEBMAIL.md) and [security](SECURITY.md).
-
-[Overview](README.md) · [User guide](USER-GUIDE.md)
+See [demo and hosting](DEMO-AND-HOSTING.md), [management access](MANAGEMENT-ACCESS.md), [installation](INSTALLATION.md) and [qualification](RELEASE-QUALIFICATION.md) for the exact developer checks and their limits. Use the accompanying manifest and checksums to identify the matching downloads.

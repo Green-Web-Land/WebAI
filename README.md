@@ -6,11 +6,20 @@ WebAI gives everyday work a clear home. Organize documents, manage files, shape 
 
 [Explore the features](#explore-your-workspace) · [Search your data](AI-ASSISTANT.md#search-across-your-working-subsystems) · [Open your mail](WEBMAIL.md) · [Read the user guide](USER-GUIDE.md) · [What's new](RELEASE-NOTES.md)
 
+## Current pre-release downloads
+
+- [WebAI v0.9.2-preview.1](https://github.com/Green-Web-Land/WebAI/releases/tag/v0.9.2-preview.1): the Linux x64 application image, matching operator helpers, documentation and third-party materials.
+- [WebAI Setup v0.1.0-preview.1](https://github.com/Green-Web-Land/WebAI/releases/tag/webai-setup-v0.1.0-preview.1): a separate read-only Linux x64 environment inspector, offered as a self-contained executable or a framework-dependent package launched with `dotnet WebAI.Setup.dll`.
+
+Both are evaluation pre-releases. Setup cannot install or update WebAI in this version. Read [Setup requirements and usage](WEBAI-SETUP.md), [WebAI installation](INSTALLATION.md) and [verification limits](RELEASE-QUALIFICATION.md). Follow the versioned documentation included with each release when using an older download.
+
 ## A look at WebAI
 
 ![WebAI Home showing introductions to the workspace with its application version in the footer](images/webai-home-current.png)
 
-An actual screenshot of the evaluation workspace using a synthetic account. Home introduces the features; the separate Dashboard brings together availability and the subsystem summaries you are authorized to see.
+A screenshot of an earlier evaluation workspace using a synthetic account; current layouts differ. Home introduces the features; the separate Dashboard brings together availability and the subsystem summaries you are authorized to see.
+
+Public Home and optional hosting identity are available before sign-in. Administrators can offer temporary User registrations with a configurable access period. Read [demo and hosting](DEMO-AND-HOSTING.md) and [Owner/Admin management access](MANAGEMENT-ACCESS.md).
 
 ## Explore your workspace
 
@@ -68,7 +77,7 @@ The example uses synthetic data. Expand only the panels you need; saved question
 
 Save multiple private IMAP/SMTP configurations in **Office → Mailbox settings**. Open a mailbox in its own browser tab for reading and composing, or use **Search email** inside WebAI. Passwords are write-only through the application; each account controls its own connections.
 
-[Set up webmail](WEBMAIL.md) · [Choose local-only or HTTPS access](HTTPS-SETUP.md)
+[Set up webmail](WEBMAIL.md) · [Choose local, LAN or external HTTPS access](HTTPS-SETUP.md)
 
 ![AI Assistant explains file and manuscript workflows with direct links to relevant Help](images/ai-assistant-example.png)
 
@@ -98,7 +107,7 @@ You control the installation and its surrounding environment. Protect the host, 
 
 ## Try the evaluation demo
 
-Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **WebAI v0.9.0**; the earlier **v0.7.1** download does not include webmail, Data Search or optional signup. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
+Get software from [WebAI releases](https://github.com/Green-Web-Land/WebAI/releases). Match the documentation and operator helpers to the downloaded version. This guide describes **WebAI v0.9.2-preview.1**; v0.9.0 does not have the same IP-only installer. See [version notes](RELEASE-NOTES.md) and the [installation guide](INSTALLATION.md). WebAI runs in your own environment; it is not a hosted service.
 
 Start with a small, synthetic project: create a document and revise it, organize a few sample files, outline a short book, then ask Help about a feature. Tell us where the experience feels clear — and where it could be better.
 
@@ -110,4 +119,4 @@ Useful feedback comes in many forms: a reproducible defect, a clearer label, a t
 
 Use this repository's Issues for non-sensitive feedback. Never attach credentials, private documents or runtime backups.
 
-[Contribution guidance](EVALUATION.md#report-a-defect) · [Translation suggestions](EVALUATION.md#suggest-translations) · [User guide](USER-GUIDE.md) · [About and support](ABOUT.md)
+[Contribution guidance](EVALUATION.md#feedback) · [Translation suggestions](EVALUATION.md#feedback) · [User guide](USER-GUIDE.md) · [About and support](ABOUT.md)

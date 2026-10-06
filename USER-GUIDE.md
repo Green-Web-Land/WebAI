@@ -18,9 +18,9 @@ Documents contains Document Library and Write a Book. Office contains mail setti
 
 **Configure workspace** changes your personal menu choices. It does not install features or change permissions. The Owner's subsystem access policy is separate and applies to service requests as well as the UI.
 
-Panels normally start collapsed. Select their headings, or use keyboard Enter or Space, to expand them. Collapsing a panel does not discard form values. Confirmation panels can open automatically; important errors remain visible. Action styles distinguish primary, secondary, destructive and disabled buttons. Hover or focus help explains controls; field question buttons also support touch. Menu and Help topic selectors intentionally have no balloons.
+Panels normally start collapsed. Select their headings, or use keyboard Enter or Space, to expand them. Collapsing a panel does not discard form values. Confirmation panels can open automatically; important errors remain visible. Action styles distinguish primary, secondary, destructive and disabled buttons. Hover help explains controls. Activate a field question button by click, tap, Enter or Space to toggle help. Escape dismisses it; moving focus outside the field closes deliberate help. Keyboard focus alone does not open balloons. Menu and Help topic selectors intentionally have no balloons.
 
-Home is the introductory landing page. Choose **Dashboard** in the main menu, or **Open dashboard** on Home, for overall availability and authorized subsystem summaries. Subsystem dashboards provide their own summaries and navigation. The footer shows **WebAI**, the running application version and a brief availability summary; it is not continuous health monitoring. About shows the same application version and additional component versions.
+Home is public and introduces the workspace and, when enabled by the Owner, the hosting organization. Visitors can sign in or register when signup is enabled; private tools, settings, account data and availability details remain protected. After sign-in, choose **Dashboard** for authorized subsystem summaries. The footer shows the running prerelease version; authenticated availability summaries are snapshots, not continuous health monitoring. About shows the same application version and detailed build identity. See [demo and hosting](DEMO-AND-HOSTING.md) for hosting content and temporary accounts.
 
 ## Document Library
 
@@ -59,6 +59,10 @@ Translation files are limited to 512 KiB, 2,000 entries and 4,000 characters per
 ## Account email and optional signup
 
 Administrators configure signup and the support email under **System Configuration → Accounts**. Signup is disabled by default. When enabled, it creates **User** accounts only, with either automatic activation or administrator approval. If email verification is also required, both verification and approval must be completed before sign-in.
+
+Optional temporary registration gives new User accounts a configured lifetime in hours, shown before registration. The period begins after required activation steps finish. My account shows the deadline in UTC. Expired accounts lose access without deleting their data; an administrator can extend access or make a suspended/expired User permanent and enable it. Previous sessions stay revoked and a fresh sign-in is required. Existing permanent accounts are not retroactively made temporary.
+
+An Owner can independently restrict Owner and Admin sign-in to the private management entry. If your role is restricted, use the operator-provided tunnel and exact management address. Ordinary User access is unaffected. See [management access](MANAGEMENT-ACCESS.md).
 
 Verification uses an **eight-digit email code**, not a link. Enter it in the WebAI browser where you requested it. Codes expire after ten minutes, can be used once, and allow five attempts. Wait at least one minute before requesting a replacement; a replacement invalidates the earlier code. No externally reachable WebAI address is needed. The installation still needs outbound SMTP connectivity.
 
